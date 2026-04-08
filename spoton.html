@@ -43,21 +43,15 @@ body {
   padding: 28px 20px 24px;
   overflow-x: hidden;
   position: relative;
-  background: #EDE0D8;
+  background: #FFFFFF;
 }
 
-/* Aura mesh background — matches Alena exactly */
+/* Main page backdrop */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background:
-    radial-gradient(ellipse 60% 50% at 15% 25%, rgba(232,160,144,0.85) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 60% at 85% 15%, rgba(180,192,220,0.7) 0%, transparent 65%),
-    radial-gradient(ellipse 55% 45% at 75% 80%, rgba(212,176,200,0.7) 0%, transparent 65%),
-    radial-gradient(ellipse 45% 55% at 30% 85%, rgba(232,196,192,0.6) 0%, transparent 60%),
-    radial-gradient(ellipse 70% 70% at 50% 50%, rgba(245,237,232,0.5) 0%, transparent 80%);
-  background-color: #EDE0D8;
+  background: #FFFFFF;
   pointer-events: none;
   z-index: 0;
 }
@@ -800,106 +794,290 @@ body::after {
 .home2-bottom-space { height: 92px; }
 
 /* ════════════════════ SCREEN 3 — CAPTURE ════════════════════ */
-#screen-capture { background: #0E0B09; }
+#screen-capture {
+  background: #080707;
+  --guide-accent: #f0b45e;
+  --guide-chip-bg: rgba(240,180,94,0.18);
+  --guide-chip-text: #f8d9a2;
+}
+#screen-capture[data-guide-state='distance'] {
+  --guide-accent: #f0b45e;
+  --guide-chip-bg: rgba(240,180,94,0.2);
+  --guide-chip-text: #f8d9a2;
+}
+#screen-capture[data-guide-state='center'] {
+  --guide-accent: #72bfd8;
+  --guide-chip-bg: rgba(114,191,216,0.2);
+  --guide-chip-text: #bde8f6;
+}
+#screen-capture[data-guide-state='lighting'] {
+  --guide-accent: #cf8bff;
+  --guide-chip-bg: rgba(207,139,255,0.2);
+  --guide-chip-text: #ead1ff;
+}
+#screen-capture[data-guide-state='ready'] {
+  --guide-accent: #67d390;
+  --guide-chip-bg: rgba(103,211,144,0.2);
+  --guide-chip-text: #c9f4d8;
+}
+
 .viewfinder {
   position: relative;
-  height: 430px;
-  background: #0E0B09;
-  display: flex; align-items: center; justify-content: center;
+  height: 476px;
+  background: #080707;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
   overflow: hidden;
 }
 .vf-ambient {
-  position: absolute; inset: 0;
+  position: absolute;
+  inset: 0;
   background:
-    radial-gradient(ellipse 60% 50% at 30% 30%, rgba(180,100,80,0.2) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 40% at 70% 70%, rgba(100,80,140,0.15) 0%, transparent 55%);
+    radial-gradient(130% 70% at 12% 20%, rgba(130, 78, 60, 0.34) 0%, transparent 52%),
+    radial-gradient(90% 80% at 92% 16%, rgba(78, 88, 124, 0.34) 0%, transparent 56%),
+    radial-gradient(110% 90% at 74% 88%, rgba(124, 92, 90, 0.34) 0%, transparent 58%),
+    linear-gradient(180deg, rgba(0,0,0,0.75), rgba(0,0,0,0.4) 44%, rgba(0,0,0,0.82));
 }
-.vf-status {
-  position: absolute; top: 0; left: 0; right: 0;
-  height: 56px;
-  display: flex; align-items: flex-end;
-  padding: 0 22px 8px;
-  justify-content: space-between;
-  z-index: 20;
-}
-.vf-time { font-size: 15px; font-weight: 700; color: white; }
 
-.vf-circle {
-  width: 210px; height: 210px;
-  border: 1.5px solid rgba(255,255,255,0.5);
-  border-radius: 50%;
+.vf-guide-wrap {
   position: relative;
-  z-index: 2;
+  width: 274px;
+  height: 274px;
+  z-index: 5;
 }
-.vf-circle::before {
-  content: '';
-  position: absolute; inset: -14px;
-  border: 1px dashed rgba(255,255,255,0.15);
-  border-radius: 50%;
+.vf-guide-shadow {
+  position: absolute;
+  inset: -14px;
+  border-radius: 32px;
+  box-shadow:
+    0 0 0 999px rgba(0,0,0,0.36),
+    inset 0 0 48px rgba(255,255,255,0.06);
+}
+.vf-guide-frame {
+  position: absolute;
+  inset: 0;
+  border-radius: 26px;
+  border: 1.5px solid color-mix(in srgb, var(--guide-accent) 72%, #ffffff 28%);
+  background:
+    linear-gradient(to right, rgba(255,255,255,0.12) 1px, transparent 1px) 50% 50% / 34% 100%,
+    linear-gradient(to bottom, rgba(255,255,255,0.12) 1px, transparent 1px) 50% 50% / 100% 34%;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.08),
+    0 0 24px color-mix(in srgb, var(--guide-accent) 30%, transparent);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
-/* corner brackets */
-.bracket { position: absolute; width: 22px; height: 22px; border-color: rgba(255,255,255,0.85); border-style: solid; }
-.bracket.tl { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
-.bracket.tr { top: -1px; right: -1px; border-width: 2px 2px 0 0; }
-.bracket.bl { bottom: -1px; left: -1px; border-width: 0 0 2px 2px; }
-.bracket.br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+.vf-safe-zone {
+  position: absolute;
+  inset: 52px;
+  border-radius: 16px;
+  border: 1px dashed rgba(255,255,255,0.32);
+}
+.vf-center-target {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 56px;
+  height: 56px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1.2px solid rgba(255,255,255,0.48);
+}
+.vf-center-target::before,
+.vf-center-target::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+.vf-center-target::before {
+  width: 20px;
+  height: 20px;
+  border: 1px solid color-mix(in srgb, var(--guide-accent) 70%, #ffffff 30%);
+}
+.vf-center-target::after {
+  width: 6px;
+  height: 6px;
+  background: color-mix(in srgb, var(--guide-accent) 78%, #ffffff 22%);
+}
+
+.guide-corner {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-style: solid;
+  border-color: color-mix(in srgb, var(--guide-accent) 78%, #ffffff 22%);
+  border-width: 0;
+  transition: border-color 0.35s ease;
+}
+.guide-corner.tl { top: 0; left: 0; border-top-width: 3px; border-left-width: 3px; border-top-left-radius: 8px; }
+.guide-corner.tr { top: 0; right: 0; border-top-width: 3px; border-right-width: 3px; border-top-right-radius: 8px; }
+.guide-corner.bl { bottom: 0; left: 0; border-bottom-width: 3px; border-left-width: 3px; border-bottom-left-radius: 8px; }
+.guide-corner.br { bottom: 0; right: 0; border-bottom-width: 3px; border-right-width: 3px; border-bottom-right-radius: 8px; }
 
 .scan-line {
-  position: absolute; width: 100%; height: 1.5px;
-  background: linear-gradient(to right, transparent, rgba(232,160,144,0.8), transparent);
-  z-index: 3; top: 10%;
-  animation: scanMove 2.4s ease-in-out infinite;
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  height: 2px;
+  border-radius: 2px;
+  z-index: 3;
+  top: 16%;
+  background: linear-gradient(to right, transparent, color-mix(in srgb, var(--guide-accent) 82%, #ffffff 18%), transparent);
+  animation: scanMove 2.8s ease-in-out infinite;
 }
-@keyframes scanMove { 0%,100%{top:15%} 50%{top:80%} }
+@keyframes scanMove { 0%,100%{top:14%} 50%{top:86%} }
 
-.vf-warning {
-  position: absolute; bottom: 14px; left: 16px; right: 16px; z-index: 10;
-  background: rgba(201,146,58,0.12);
-  border: 1px solid rgba(201,146,58,0.35);
-  border-radius: 12px;
-  padding: 10px 14px;
-  display: flex; align-items: center; gap: 10px;
+.vf-feedback {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 18px;
+  z-index: 9;
+  border-radius: 16px;
+  border: 1px solid color-mix(in srgb, var(--guide-accent) 45%, rgba(255,255,255,0.24));
+  background: linear-gradient(145deg, rgba(8,8,8,0.82), rgba(15,15,15,0.62));
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  transition: border-color 0.35s ease;
 }
-.warn-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
-.warn-txt { font-size: 12px; color: rgba(201,146,58,1); font-weight: 500; }
+.vf-feedback-copy {
+  font-size: 12px;
+  color: rgba(255,255,255,0.84);
+  font-weight: 500;
+  line-height: 1.35;
+}
+.vf-feedback-chip {
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: var(--guide-chip-bg);
+  color: var(--guide-chip-text);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  flex-shrink: 0;
+}
 
 .capture-bottom {
-  background: #0E0B09;
-  padding: 16px 20px 20px;
+  background: #080707;
+  padding: 8px 18px 34px;
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
-.tips-card-dark {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.09);
-  border-radius: 16px;
-  padding: 14px 16px;
-  margin-bottom: 16px;
-}
-.tips-title { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.7); margin-bottom: 10px; letter-spacing: 0.5px; }
-.tip-row { display: flex; align-items: center; gap: 10px; margin-bottom: 7px; }
-.tip-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
-.tip-dot.ok  { background: rgba(90,138,72,0.8); }
-.tip-dot.bad { background: rgba(201,80,79,0.8); }
-.tip-text { font-size: 12px; color: rgba(255,255,255,0.5); }
 
-.capture-controls { display: flex; align-items: center; justify-content: space-between; }
-.ctrl-side-btn {
-  width: 46px; height: 46px;
-  background: rgba(255,255,255,0.08);
-  border-radius: 13px;
-  display: flex; align-items: center; justify-content: center;
+.capture-guide-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 16px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
 }
-.ctrl-side-btn svg { width: 20px; height: 20px; fill: none; stroke: rgba(255,255,255,0.6); stroke-width: 1.8; stroke-linecap: round; }
-.shutter {
-  width: 68px; height: 68px;
+.capture-guide-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 9px;
+}
+.capture-guide-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.72);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+.capture-guide-live {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--guide-chip-text);
+  background: var(--guide-chip-bg);
+  border-radius: 999px;
+  padding: 4px 8px;
+}
+.tip-row { display: flex; align-items: center; gap: 9px; margin-bottom: 7px; }
+.tip-row:last-child { margin-bottom: 0; }
+.tip-dot {
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  border: 3.5px solid rgba(255,255,255,0.25);
-  background: rgba(255,255,255,0.9);
-  cursor: pointer;
+  flex-shrink: 0;
+  background: color-mix(in srgb, var(--guide-accent) 76%, #ffffff 24%);
 }
-.capture-hint { text-align: center; font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 12px; }
+.tip-text {
+  font-size: 12px;
+  color: rgba(255,255,255,0.62);
+}
+
+.capture-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+.ctrl-side-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: linear-gradient(145deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ctrl-side-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: rgba(255,255,255,0.76);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.shutter {
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  border: 3px solid rgba(255,255,255,0.32);
+  background: transparent;
+  padding: 5px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.shutter-core {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffffff 0%, #ececec 62%, #d7d7d7 100%);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.65), inset 0 -2px 6px rgba(0,0,0,0.15);
+}
+.shutter.pressed { transform: scale(0.94); }
+
+.capture-hint {
+  text-align: center;
+  font-size: 11px;
+  color: rgba(255,255,255,0.42);
+  margin-top: 10px;
+}
+.capture-flash {
+  position: absolute;
+  inset: 0;
+  z-index: 12;
+  pointer-events: none;
+  background: white;
+  opacity: 0;
+  transition: opacity 0.16s ease;
+}
+.capture-flash.active { opacity: 0.42; }
+
+#screen-capture:not(.active) .scan-line { animation-play-state: paused; }
 
 /* ════════════════════ SCREEN 4 — PROCESSING ════════════════════ */
 #screen-processing {
@@ -1860,7 +2038,6 @@ body::after {
                   <div class="home2-user">Maria Santos</div>
                   <div class="home2-sub">Last scan: 3 days ago · No high-risk findings</div>
                 </div>
-                <div class="home2-mini-pill">Scan-ready</div>
               </div>
 
               <div class="home2-scan-spot">
@@ -1970,44 +2147,52 @@ body::after {
         <!-- ══ SCREEN 3: CAPTURE ══ -->
         <div class="screen" id="screen-capture">
           <div class="viewfinder">
+            <div class="capture-flash" id="capture-flash"></div>
             <div class="vf-ambient"></div>
-            <div class="vf-status">
-              <span class="vf-time">9:41</span>
-              <span style="font-size:13px;color:rgba(255,255,255,0.7);font-weight:500;">HD</span>
-            </div>
-            <div style="position:relative;">
-              <div class="vf-circle">
+
+            <div class="vf-guide-wrap">
+              <div class="vf-guide-shadow"></div>
+              <div class="vf-guide-frame">
+                <div class="vf-safe-zone"></div>
+                <div class="vf-center-target"></div>
                 <div class="scan-line"></div>
-                <div class="bracket tl"></div>
-                <div class="bracket tr"></div>
-                <div class="bracket bl"></div>
-                <div class="bracket br"></div>
+                <div class="guide-corner tl"></div>
+                <div class="guide-corner tr"></div>
+                <div class="guide-corner bl"></div>
+                <div class="guide-corner br"></div>
               </div>
             </div>
-            <div class="vf-warning">
-              <div class="warn-dot"></div>
-              <div class="warn-txt">Ensure even lighting — avoid direct shadows on the lesion</div>
+
+            <div class="vf-feedback">
+              <div class="vf-feedback-copy" id="capture-feedback-text">Move closer until lesion fills most of inner square</div>
+              <div class="vf-feedback-chip" id="capture-feedback-chip">Distance 20 cm</div>
             </div>
           </div>
 
           <div class="capture-bottom">
-            <div class="tips-card-dark">
-              <div class="tips-title">Photo Guidelines</div>
-              <div class="tip-row"><div class="tip-dot ok"></div><div class="tip-text">Hold camera 10–15 cm from skin</div></div>
-              <div class="tip-row"><div class="tip-dot ok"></div><div class="tip-text">Center the lesion inside the circle</div></div>
-              <div class="tip-row"><div class="tip-dot ok"></div><div class="tip-text">Use natural daylight when possible</div></div>
-              <div class="tip-row" style="margin:0;"><div class="tip-dot bad"></div><div class="tip-text">Avoid blurry or overexposed images</div></div>
+            <div class="capture-guide-card">
+              <div class="capture-guide-head">
+                <div class="capture-guide-title">Capture Guide</div>
+                <div class="capture-guide-live" id="capture-guide-live">Analyzing framing</div>
+              </div>
+              <div class="tip-row"><div class="tip-dot"></div><div class="tip-text">Hold phone steady and keep lesion inside safe zone</div></div>
+              <div class="tip-row"><div class="tip-dot"></div><div class="tip-text">Target distance is 10-15 cm with even skin lighting</div></div>
+              <div class="tip-row"><div class="tip-dot"></div><div class="tip-text">Tap shutter only when guide shows Ready</div></div>
             </div>
+
             <div class="capture-controls">
               <div class="ctrl-side-btn" onclick="goToScreen('screen-questionnaire')">
                 <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
               </div>
-              <div class="shutter" onclick="goToScreen('screen-questionnaire')"></div>
+
+              <button class="shutter" id="capture-shutter" onclick="triggerCapture()" aria-label="Capture lesion photo">
+                <span class="shutter-core"></span>
+              </button>
+
               <div class="ctrl-side-btn">
                 <svg viewBox="0 0 24 24"><path d="M1 4v6h6"/><path d="M23 20v-6h-6"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/></svg>
               </div>
             </div>
-            <div class="capture-hint">After capture, answer 6 symptom questions to improve triage scoring</div>
           </div>
         </div>
 
@@ -3060,6 +3245,66 @@ tick(); setInterval(tick, 15000);
 // ── Screen nav ──
 const NAV_SCREENS = ['screen-home','screen-clinics','screen-education','screen-settings'];
 
+const CAPTURE_GUIDE_STATES = [
+  { key: 'distance', text: 'Move closer until lesion fills most of inner square', chip: 'Distance 20 cm', live: 'Analyzing framing' },
+  { key: 'center', text: 'Center the lesion to align with cross-grid target', chip: 'Offset detected', live: 'Checking position' },
+  { key: 'lighting', text: 'Shift angle to remove shadow across lesion edge', chip: 'Low light area', live: 'Checking lighting' },
+  { key: 'ready', text: 'Great framing and lighting. Capture now.', chip: 'Ready to capture', live: 'Quality locked' }
+];
+
+let captureGuideTimer = null;
+let captureGuideIndex = 0;
+
+function applyCaptureGuideState(state) {
+  const screen = document.getElementById('screen-capture');
+  if (!screen || !state) return;
+  screen.dataset.guideState = state.key;
+
+  const feedbackText = document.getElementById('capture-feedback-text');
+  const feedbackChip = document.getElementById('capture-feedback-chip');
+  const guideLive = document.getElementById('capture-guide-live');
+
+  if (feedbackText) feedbackText.textContent = state.text;
+  if (feedbackChip) feedbackChip.textContent = state.chip;
+  if (guideLive) guideLive.textContent = state.live;
+}
+
+function startCaptureGuideDemo() {
+  if (captureGuideTimer) return;
+  captureGuideIndex = 0;
+  applyCaptureGuideState(CAPTURE_GUIDE_STATES[captureGuideIndex]);
+
+  captureGuideTimer = setInterval(() => {
+    const screen = document.getElementById('screen-capture');
+    if (!screen || !screen.classList.contains('active')) return;
+    captureGuideIndex = (captureGuideIndex + 1) % CAPTURE_GUIDE_STATES.length;
+    applyCaptureGuideState(CAPTURE_GUIDE_STATES[captureGuideIndex]);
+  }, 2600);
+}
+
+function stopCaptureGuideDemo() {
+  if (!captureGuideTimer) return;
+  clearInterval(captureGuideTimer);
+  captureGuideTimer = null;
+}
+
+function triggerCapture() {
+  const shutter = document.getElementById('capture-shutter');
+  const flash = document.getElementById('capture-flash');
+
+  if (shutter) shutter.classList.add('pressed');
+  if (flash) flash.classList.add('active');
+
+  setTimeout(() => {
+    if (shutter) shutter.classList.remove('pressed');
+    if (flash) flash.classList.remove('active');
+  }, 170);
+
+  setTimeout(() => {
+    goToScreen('screen-questionnaire');
+  }, 210);
+}
+
 function goToScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   const t = document.getElementById(id);
@@ -3087,6 +3332,9 @@ function goToScreen(id) {
   // Home bar color
   const dark = ['screen-capture','screen-processing','screen-result'].includes(id);
   document.getElementById('home-bar').style.background = dark ? 'rgba(255,255,255,0.35)' : 'rgba(0,0,0,0.2)';
+
+  if (id === 'screen-capture') startCaptureGuideDemo();
+  else stopCaptureGuideDemo();
 }
 
 // ── Toggles ──
