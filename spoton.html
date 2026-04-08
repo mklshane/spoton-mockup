@@ -94,8 +94,6 @@ body::after {
     0 0 0 1px #2E2420,
     0 0 0 3px #1A1410,
     0 0 0 4.5px #3A2E28,
-    0 60px 140px rgba(80,40,20,0.5),
-    0 20px 60px rgba(0,0,0,0.3),
     inset 0 0 0 1.5px rgba(255,255,255,0.04);
   flex-shrink: 0;
   transform-origin: top center;
@@ -795,95 +793,94 @@ body::after {
 
 /* ════════════════════ SCREEN 3 — CAPTURE ════════════════════ */
 #screen-capture {
-  background: #080707;
-  --guide-accent: #f0b45e;
-  --guide-chip-bg: rgba(240,180,94,0.18);
-  --guide-chip-text: #f8d9a2;
-}
-#screen-capture[data-guide-state='distance'] {
-  --guide-accent: #f0b45e;
-  --guide-chip-bg: rgba(240,180,94,0.2);
-  --guide-chip-text: #f8d9a2;
-}
-#screen-capture[data-guide-state='center'] {
-  --guide-accent: #72bfd8;
-  --guide-chip-bg: rgba(114,191,216,0.2);
-  --guide-chip-text: #bde8f6;
-}
-#screen-capture[data-guide-state='lighting'] {
-  --guide-accent: #cf8bff;
-  --guide-chip-bg: rgba(207,139,255,0.2);
-  --guide-chip-text: #ead1ff;
-}
-#screen-capture[data-guide-state='ready'] {
+  background: #060606;
   --guide-accent: #67d390;
-  --guide-chip-bg: rgba(103,211,144,0.2);
-  --guide-chip-text: #c9f4d8;
 }
 
 .viewfinder {
   position: relative;
-  height: 476px;
-  background: #080707;
+  flex: 1;
+  min-height: 440px;
+  background: radial-gradient(120% 80% at 50% 20%, rgba(22,22,22,0.58), #050505 68%);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   overflow: hidden;
 }
-.vf-ambient {
+
+.capture-top-bar {
   position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(130% 70% at 12% 20%, rgba(130, 78, 60, 0.34) 0%, transparent 52%),
-    radial-gradient(90% 80% at 92% 16%, rgba(78, 88, 124, 0.34) 0%, transparent 56%),
-    radial-gradient(110% 90% at 74% 88%, rgba(124, 92, 90, 0.34) 0%, transparent 58%),
-    linear-gradient(180deg, rgba(0,0,0,0.75), rgba(0,0,0,0.4) 44%, rgba(0,0,0,0.82));
+  top: 28px;
+  left: 16px;
+  right: 16px;
+  z-index: 10;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.capture-top-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(20,20,20,0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.capture-top-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: rgba(255,255,255,0.9);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .vf-guide-wrap {
   position: relative;
-  width: 274px;
-  height: 274px;
+  width: 286px;
+  height: 286px;
   z-index: 5;
 }
 .vf-guide-shadow {
   position: absolute;
-  inset: -14px;
-  border-radius: 32px;
+  inset: -12px;
+  border-radius: 28px;
   box-shadow:
-    0 0 0 999px rgba(0,0,0,0.36),
-    inset 0 0 48px rgba(255,255,255,0.06);
+    0 0 0 999px rgba(0,0,0,0.42),
+    inset 0 0 28px rgba(255,255,255,0.04);
 }
 .vf-guide-frame {
   position: absolute;
   inset: 0;
-  border-radius: 26px;
-  border: 1.5px solid color-mix(in srgb, var(--guide-accent) 72%, #ffffff 28%);
-  background:
-    linear-gradient(to right, rgba(255,255,255,0.12) 1px, transparent 1px) 50% 50% / 34% 100%,
-    linear-gradient(to bottom, rgba(255,255,255,0.12) 1px, transparent 1px) 50% 50% / 100% 34%;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: transparent;
   box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,0.08),
-    0 0 24px color-mix(in srgb, var(--guide-accent) 30%, transparent);
-  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+    inset 0 0 0 1px rgba(255,255,255,0.04),
+    0 0 20px rgba(103,211,144,0.08);
 }
 
 .vf-safe-zone {
   position: absolute;
-  inset: 52px;
+  inset: 66px;
   border-radius: 16px;
-  border: 1px dashed rgba(255,255,255,0.32);
+  border: 1px solid rgba(255,255,255,0.2);
 }
 .vf-center-target {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 56px;
-  height: 56px;
+  width: 40px;
+  height: 40px;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  border: 1.2px solid rgba(255,255,255,0.48);
+  border: 1px solid rgba(255,255,255,0.28);
 }
 .vf-center-target::before,
 .vf-center-target::after {
@@ -895,24 +892,23 @@ body::after {
   border-radius: 50%;
 }
 .vf-center-target::before {
-  width: 20px;
-  height: 20px;
-  border: 1px solid color-mix(in srgb, var(--guide-accent) 70%, #ffffff 30%);
+  width: 12px;
+  height: 12px;
+  border: 1px solid rgba(255,255,255,0.42);
 }
 .vf-center-target::after {
-  width: 6px;
-  height: 6px;
-  background: color-mix(in srgb, var(--guide-accent) 78%, #ffffff 22%);
+  width: 4px;
+  height: 4px;
+  background: rgba(255,255,255,0.62);
 }
 
 .guide-corner {
   position: absolute;
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   border-style: solid;
-  border-color: color-mix(in srgb, var(--guide-accent) 78%, #ffffff 22%);
+  border-color: #67d390;
   border-width: 0;
-  transition: border-color 0.35s ease;
 }
 .guide-corner.tl { top: 0; left: 0; border-top-width: 3px; border-left-width: 3px; border-top-left-radius: 8px; }
 .guide-corner.tr { top: 0; right: 0; border-top-width: 3px; border-right-width: 3px; border-top-right-radius: 8px; }
@@ -921,98 +917,49 @@ body::after {
 
 .scan-line {
   position: absolute;
-  left: 12px;
-  right: 12px;
-  height: 2px;
+  left: 16px;
+  right: 16px;
+  height: 1px;
   border-radius: 2px;
   z-index: 3;
-  top: 16%;
-  background: linear-gradient(to right, transparent, color-mix(in srgb, var(--guide-accent) 82%, #ffffff 18%), transparent);
-  animation: scanMove 2.8s ease-in-out infinite;
+  top: 15%;
+  background: linear-gradient(to right, transparent, rgba(103,211,144,0.84), transparent);
+  animation: scanMove 3.2s ease-in-out infinite;
 }
 @keyframes scanMove { 0%,100%{top:14%} 50%{top:86%} }
 
-.vf-feedback {
-  position: absolute;
-  left: 18px;
-  right: 18px;
-  bottom: 18px;
-  z-index: 9;
-  border-radius: 16px;
-  border: 1px solid color-mix(in srgb, var(--guide-accent) 45%, rgba(255,255,255,0.24));
-  background: linear-gradient(145deg, rgba(8,8,8,0.82), rgba(15,15,15,0.62));
-  padding: 12px 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  transition: border-color 0.35s ease;
-}
-.vf-feedback-copy {
-  font-size: 12px;
-  color: rgba(255,255,255,0.84);
-  font-weight: 500;
-  line-height: 1.35;
-}
-.vf-feedback-chip {
-  padding: 4px 9px;
-  border-radius: 999px;
-  background: var(--guide-chip-bg);
-  color: var(--guide-chip-text);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.2px;
-  flex-shrink: 0;
-}
-
 .capture-bottom {
-  background: #080707;
-  padding: 8px 18px 34px;
-  flex: 1;
+  background: #060606;
+  padding: 10px 18px 34px;
   display: flex;
   flex-direction: column;
 }
 
-.capture-guide-card {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 16px;
-  padding: 12px 14px;
-  margin-bottom: 10px;
+.capture-status {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.78);
+  letter-spacing: 0.15px;
+  margin-top: 4px;
 }
-.capture-guide-head {
+
+.capture-micro-guides {
+  margin-top: 8px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 9px;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
 }
-.capture-guide-title {
-  font-size: 11px;
-  font-weight: 700;
-  color: rgba(255,255,255,0.72);
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-}
-.capture-guide-live {
+
+.capture-micro-guide {
   font-size: 10px;
-  font-weight: 700;
-  color: var(--guide-chip-text);
-  background: var(--guide-chip-bg);
-  border-radius: 999px;
-  padding: 4px 8px;
-}
-.tip-row { display: flex; align-items: center; gap: 9px; margin-bottom: 7px; }
-.tip-row:last-child { margin-bottom: 0; }
-.tip-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  background: color-mix(in srgb, var(--guide-accent) 76%, #ffffff 24%);
-}
-.tip-text {
-  font-size: 12px;
+  line-height: 1;
   color: rgba(255,255,255,0.62);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 999px;
+  padding: 5px 8px;
+  letter-spacing: 0.2px;
 }
 
 .capture-controls {
@@ -1025,17 +972,18 @@ body::after {
   width: 48px;
   height: 48px;
   border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.2);
-  background: linear-gradient(145deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03));
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.08);
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 .ctrl-side-btn svg {
   width: 20px;
   height: 20px;
   fill: none;
-  stroke: rgba(255,255,255,0.76);
+  stroke: rgba(255,255,255,0.74);
   stroke-width: 1.8;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -1045,7 +993,7 @@ body::after {
   width: 74px;
   height: 74px;
   border-radius: 50%;
-  border: 3px solid rgba(255,255,255,0.32);
+  border: 3px solid rgba(255,255,255,0.48);
   background: transparent;
   padding: 5px;
   cursor: pointer;
@@ -1062,9 +1010,10 @@ body::after {
 
 .capture-hint {
   text-align: center;
-  font-size: 11px;
-  color: rgba(255,255,255,0.42);
-  margin-top: 10px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.44);
+  margin-top: 5px;
+  margin-bottom: 10px;
 }
 .capture-flash {
   position: absolute;
@@ -1752,7 +1701,7 @@ body::after {
 .cl-map-wrap {
   position: relative;
   width: 100%;
-  height: 238px;
+  height: 400px;
   flex-shrink: 0;
   overflow: hidden;
   background: #F2EFE9;
@@ -1762,7 +1711,7 @@ body::after {
 /* Floating search on map */
 .cl-map-search {
   position: absolute;
-  top: 10px; left: 12px; right: 12px;
+  top: 54px; left: 12px; right: 12px;
   background: white; border-radius: 14px;
   padding: 10px 14px;
   display: flex; align-items: center; gap: 9px;
@@ -2148,7 +2097,11 @@ body::after {
         <div class="screen" id="screen-capture">
           <div class="viewfinder">
             <div class="capture-flash" id="capture-flash"></div>
-            <div class="vf-ambient"></div>
+            <div class="capture-top-bar">
+              <button class="capture-top-btn" onclick="goToScreen('screen-home')" aria-label="Go back">
+                <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+            </div>
 
             <div class="vf-guide-wrap">
               <div class="vf-guide-shadow"></div>
@@ -2162,23 +2115,16 @@ body::after {
                 <div class="guide-corner br"></div>
               </div>
             </div>
-
-            <div class="vf-feedback">
-              <div class="vf-feedback-copy" id="capture-feedback-text">Move closer until lesion fills most of inner square</div>
-              <div class="vf-feedback-chip" id="capture-feedback-chip">Distance 20 cm</div>
-            </div>
           </div>
 
           <div class="capture-bottom">
-            <div class="capture-guide-card">
-              <div class="capture-guide-head">
-                <div class="capture-guide-title">Capture Guide</div>
-                <div class="capture-guide-live" id="capture-guide-live">Analyzing framing</div>
-              </div>
-              <div class="tip-row"><div class="tip-dot"></div><div class="tip-text">Hold phone steady and keep lesion inside safe zone</div></div>
-              <div class="tip-row"><div class="tip-dot"></div><div class="tip-text">Target distance is 10-15 cm with even skin lighting</div></div>
-              <div class="tip-row"><div class="tip-dot"></div><div class="tip-text">Tap shutter only when guide shows Ready</div></div>
+            <div class="capture-status" id="capture-status">Ready to capture</div>
+            <div class="capture-micro-guides" aria-label="Quick capture tips">
+              <span class="capture-micro-guide">Center lesion</span>
+              <span class="capture-micro-guide">Avoid shadow</span>
+              <span class="capture-micro-guide">10-15 cm distance</span>
             </div>
+            <div class="capture-hint">Hold steady and fill the frame with the lesion</div>
 
             <div class="capture-controls">
               <div class="ctrl-side-btn" onclick="goToScreen('screen-questionnaire')">
@@ -2189,7 +2135,7 @@ body::after {
                 <span class="shutter-core"></span>
               </button>
 
-              <div class="ctrl-side-btn">
+              <div class="ctrl-side-btn" onclick="resetCaptureScreen()" aria-label="Retry capture">
                 <svg viewBox="0 0 24 24"><path d="M1 4v6h6"/><path d="M23 20v-6h-6"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/></svg>
               </div>
             </div>
@@ -2360,19 +2306,9 @@ body::after {
         <!-- ══ SCREEN 6: CLINICS ══ -->
         <div class="screen" id="screen-clinics">
 
-          <!-- Compact header -->
-          <div class="cl-header">
-            <div class="cl-hdr-info">
-              <div class="cl-hdr-title">Nearby Clinics</div>
-            </div>
-            <div class="cl-hdr-btn">
-              <svg viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="20" y2="12"/><line x1="12" y1="18" x2="20" y2="18"/></svg>
-            </div>
-          </div>
-
           <!-- Realistic Google Maps-style SVG map -->
           <div class="cl-map-wrap">
-            <svg class="cl-map" viewBox="0 0 378 238" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <svg class="cl-map" viewBox="-36 -24 450 286" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
               <defs>
                 <filter id="psh" x="-40%" y="-40%" width="180%" height="180%">
                   <feDropShadow dx="0" dy="2" stdDeviation="3.5" flood-color="#00000038"/>
@@ -2603,8 +2539,6 @@ body::after {
               <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
             </span>
           </div>
-
-          <div class="cl-guidance">Choose clinics with dermatology department and biopsy capability for final clinical confirmation.</div>
 
           <!-- Scrollable clinic list -->
           <div class="cl-list">
@@ -3245,47 +3179,32 @@ tick(); setInterval(tick, 15000);
 // ── Screen nav ──
 const NAV_SCREENS = ['screen-home','screen-clinics','screen-education','screen-settings'];
 
-const CAPTURE_GUIDE_STATES = [
-  { key: 'distance', text: 'Move closer until lesion fills most of inner square', chip: 'Distance 20 cm', live: 'Analyzing framing' },
-  { key: 'center', text: 'Center the lesion to align with cross-grid target', chip: 'Offset detected', live: 'Checking position' },
-  { key: 'lighting', text: 'Shift angle to remove shadow across lesion edge', chip: 'Low light area', live: 'Checking lighting' },
-  { key: 'ready', text: 'Great framing and lighting. Capture now.', chip: 'Ready to capture', live: 'Quality locked' }
-];
-
-let captureGuideTimer = null;
-let captureGuideIndex = 0;
-
-function applyCaptureGuideState(state) {
+function applyCaptureGuideState(stateKey) {
   const screen = document.getElementById('screen-capture');
-  if (!screen || !state) return;
-  screen.dataset.guideState = state.key;
+  const status = document.getElementById('capture-status');
+  if (!screen || !status) return;
 
-  const feedbackText = document.getElementById('capture-feedback-text');
-  const feedbackChip = document.getElementById('capture-feedback-chip');
-  const guideLive = document.getElementById('capture-guide-live');
-
-  if (feedbackText) feedbackText.textContent = state.text;
-  if (feedbackChip) feedbackChip.textContent = state.chip;
-  if (guideLive) guideLive.textContent = state.live;
+  screen.dataset.guideState = stateKey;
+  status.textContent = stateKey === 'ready'
+    ? 'Ready to capture'
+    : 'Adjust framing and lighting';
 }
 
 function startCaptureGuideDemo() {
-  if (captureGuideTimer) return;
-  captureGuideIndex = 0;
-  applyCaptureGuideState(CAPTURE_GUIDE_STATES[captureGuideIndex]);
-
-  captureGuideTimer = setInterval(() => {
-    const screen = document.getElementById('screen-capture');
-    if (!screen || !screen.classList.contains('active')) return;
-    captureGuideIndex = (captureGuideIndex + 1) % CAPTURE_GUIDE_STATES.length;
-    applyCaptureGuideState(CAPTURE_GUIDE_STATES[captureGuideIndex]);
-  }, 2600);
+  applyCaptureGuideState('ready');
 }
 
 function stopCaptureGuideDemo() {
-  if (!captureGuideTimer) return;
-  clearInterval(captureGuideTimer);
-  captureGuideTimer = null;
+  const screen = document.getElementById('screen-capture');
+  if (screen) delete screen.dataset.guideState;
+}
+
+function resetCaptureScreen() {
+  const flash = document.getElementById('capture-flash');
+  const shutter = document.getElementById('capture-shutter');
+  if (flash) flash.classList.remove('active');
+  if (shutter) shutter.classList.remove('pressed');
+  applyCaptureGuideState('ready');
 }
 
 function triggerCapture() {
